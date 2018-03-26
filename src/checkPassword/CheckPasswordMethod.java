@@ -36,10 +36,11 @@ public class CheckPasswordMethod {
 		JButton changePwd;
 		JPasswordField pwF2;
 		DaySales ds;
-		private String inputPassword;
+		private String inputPassword="";
 		public boolean login;
 		private int startMoney;
 		private String makePassword="";
+		private int loginCount=0;
 		
 		FileIO io = new FileIO();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -58,7 +59,7 @@ public class CheckPasswordMethod {
 			frame = new JFrame("로그인창");
 			frame.setBounds(500,300,300,300);
 			frame.setLayout(null);
-			
+			frame.setResizable(false);
 			
 			JLabel idLabel = new JLabel("ID");
 			idLabel.setLocation(50,50);
@@ -92,8 +93,9 @@ public class CheckPasswordMethod {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					loginCheck();
-					if(login){
+					if(login&&loginCount==0){
 						startPop();
+						loginCount++;
 					}
 				}
 			});
@@ -121,11 +123,15 @@ public class CheckPasswordMethod {
 		public void loginCheck(){
 			try(FileInputStream fs = new FileInputStream("password.txt");
 					InputStreamReader isr = new InputStreamReader(fs);){
+				int value = -1;
+				while((value = isr.read())!=-1){
+					inputPassword+=(char)value;
+				}
 				char[] makingPassword = pwF.getPassword();
 				for(int i=0;i<pwF.getPassword().length;i++){
 					makePassword+=makingPassword[i];
 				}
-			if((pwF.getText().equals(masterpw)||pwF.getText().equals(makePassword))&&idTF.getText().equals(adminId)){
+			if((makePassword.equals(masterpw)||makePassword.equals(inputPassword))&&idTF.getText().equals(adminId)){
 				JOptionPane.showMessageDialog(frame, "성공");
 				login = true;
 				frame.setVisible(false);
@@ -145,7 +151,7 @@ public class CheckPasswordMethod {
 		
 		public void changePassword(){
 			JFrame frame = new JFrame("비밀번호 교체");
-			
+			frame.setResizable(false);
 			frame.setBounds(500,300,300,300);
 			frame.setLayout(null);
 			JLabel pwLabel = new JLabel("PassWord");

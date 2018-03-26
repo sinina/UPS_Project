@@ -1,6 +1,7 @@
 package mainFrame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,8 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import checkPassword.CheckPasswordMethod;
 import fileIO.FileIO;
@@ -24,8 +27,9 @@ public class MainFrame {
 	private JButton openStoreBtn;
 	private JButton storeManagementBtn;
 	private JButton exitBtn;
-	private JButton backBtn;
+	private JPanel backBtn;
 	private JFrame mainFrame;
+	private JButton changePwd;
 	Run salesM;
 
 	FileIO io = new FileIO();
@@ -33,17 +37,37 @@ public class MainFrame {
 
 	public MainFrame() {
 		
-		
-		
-		
 		mainFrame = new JFrame("UPS_POS System");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(0, 0, 1200, 900);
 		mainFrame.setLayout(null);
 		
-		Image backIcon = new ImageIcon("food.jpg").getImage().getScaledInstance(600, 900, 0);
-		backBtn = new JButton(new ImageIcon(backIcon));
+		
+		
+		backBtn = new JPanel();
 		backBtn.setBounds(0,0,600,900);
+		JLabel mainLabel = new JLabel("UPS   POS   SYSTEM");
+		mainLabel.setLocation(50,300);
+		mainLabel.setSize(500,200);
+		mainLabel.setFont(new Font("돋움", Font.BOLD, 40));
+		mainFrame.add(mainLabel);
+		
+		changePwd = new JButton("비밀번호 변경");
+		changePwd.setBounds(0,700 , 200, 100);
+		changePwd.setFont(new Font("돋움", Font.BOLD, 12));
+		changePwd.setForeground(Color.DARK_GRAY);
+		changePwd.setBackground(Color.WHITE);
+		changePwd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(check.login){
+					check.changePassword();
+				}else{
+					check.ChekingMethod();
+				}
+			}
+		});
+		mainFrame.add(changePwd);
 		mainFrame.add(backBtn);
 		
 		Image salesIcon = new ImageIcon("chart.png").getImage().getScaledInstance(200, 250, 0);
@@ -94,20 +118,31 @@ public class MainFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == salesManagementBtn) {
-					salesM = new Run();
+				if(check.login){
+					salesM = new Run();					
+				}else{
+					check.ChekingMethod();
+				}
 			}
 			if (e.getSource() == openStoreBtn) {
-				new ViewTables();
+				if(check.login){
+					new ViewTables();					
+				}else{
+					check.ChekingMethod();
+				}
 			}
 			if (e.getSource() == storeManagementBtn) {
-				new ManagementPage();
+				if(check.login){
+					new ManagementPage();					
+				}else{
+					check.ChekingMethod();
+				}
 			}
 			if (e.getSource() == exitBtn) {
 				exitBtn.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						System.exit(0);
-
 					}
 				});
 			}
