@@ -82,7 +82,8 @@ public class Magam extends Panel {
 		clear.setFont(new Font("돋움", Font.BOLD, 14));
 		this.add(clear);
 
-		String[] won = { "오 만 원", "만      원", "오 천 원", "천      원", "오 백 원", "백      원", "오 십 원", "십      원", "총      합" };
+		String[] won = { "오 만 원", "만      원", "오 천 원", "천      원", "오 백 원", "백      원", "오 십 원", "십      원",
+				"총      합" };
 		JLabel[] labels = new JLabel[won.length];
 		jtf = new JTextField[won.length];
 
@@ -131,17 +132,23 @@ public class Magam extends Panel {
 
 				String st = new String(jtf[8].getText());
 				String[] strA = st.split(" ");
+				DaySales ds = new DaySales();
+				int totalSales = 0;
+				int expenses = 0;
 				ArrayList<DaySales> daySales = (ArrayList<DaySales>) io.readDB("DaySales");
 				for (int i = 0; i < daySales.size(); i++) {
 					if (daySales.get(i).getDate().equals(sdf.format(date))) {
+						if (totalSales == 0 && expenses == 0) {
+							totalSales = ds.getTotalSales();
+							expenses = ds.getExpenses();
+						}
+						ds = daySales.get(i);
+
 						io.removeObject("DaySales", daySales.get(i));
 					}
 				}
-				CheckPasswordMethod cpm = new CheckPasswordMethod();
-				int expenses = cpm.getStartMoney();
-//				DaySales ds = new DaySales(date, 100000, expenses, Integer.parseInt(strA[0]));
 
-				io.editDB("DaySales", new DaySales(sdf.format(date), 100000,expenses , Integer.parseInt(strA[0])));
+				io.editDB("DaySales", new DaySales(sdf.format(date), totalSales, expenses, Integer.parseInt(strA[0])));
 				daySales = (ArrayList<DaySales>) io.readDB("DaySales");
 
 				ui.setSelectedIndex(2);
