@@ -184,12 +184,12 @@ public class OrderPage extends JFrame implements ActionListener {
 
 		// pEast-pBill
 		pBill.setLayout(new GridLayout(8, 1));
-		JLabel totalCostL = new JLabel("총금액");
+		JLabel totalCostL = new JLabel("총 금액");
 		pBill.add(totalCostL);
 		JTextField totalCostT = new JTextField(30);
 		totalCostT.setText(String.valueOf(tableOrder.getTotalcost()));
 		pBill.add(totalCostT);
-		JLabel moneyToReceive = new JLabel("받을 금액");// 남은금액
+		JLabel moneyToReceive = new JLabel("받을 금액 (남은 금액)");// 남은금액
 		pBill.add(moneyToReceive);
 		moneyToReceiveT = new JTextField(30);
 		moneyToReceiveT.setText(String.valueOf(tableOrder.getRemain()));
@@ -230,7 +230,7 @@ public class OrderPage extends JFrame implements ActionListener {
 		pBill.add(moneyReceived);
 		moneyReceivedT = new JTextField(30);
 		pBill.add(moneyReceivedT);
-		JLabel Change = new JLabel("거스름돈");
+		JLabel Change = new JLabel("거스름 돈");
 		pBill.add(Change);
 		ChangeT = new JTextField(30);
 		pBill.add(ChangeT);
