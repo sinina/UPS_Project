@@ -50,6 +50,7 @@ public class OrderPage extends JFrame implements ActionListener {
 
 	HashMap<String, Menu> menus = new HashMap<String, Menu>();
 	ArrayList<MenuOrder> menuOrders = new ArrayList<MenuOrder>();
+	ArrayList<MenuOrder> ordered = new ArrayList<MenuOrder>();
 	ArrayList<TableOrder> tableOrders = new ArrayList<TableOrder>();
 	TableOrder tableOrder = new TableOrder();
 	ArrayList<DaySales> daySales = new ArrayList<DaySales>();
@@ -146,7 +147,7 @@ public class OrderPage extends JFrame implements ActionListener {
 			public void mouseClicked(MouseEvent arg0) {
 				selectList = (String) orderedList.getSelectedValue();
 				String[] sarr = selectList.split("    ");
-				selectList=sarr[1];
+				selectList = sarr[1];
 			}
 
 			@Override
@@ -293,6 +294,7 @@ public class OrderPage extends JFrame implements ActionListener {
 				if (menuOrders.size() == 0) {
 					dispose();
 				} else {
+
 					if (totalCost != 0) {
 						totalCost = 0;
 					}
@@ -424,7 +426,7 @@ public class OrderPage extends JFrame implements ActionListener {
 		menuManagement[0] = new JButton("선택삭제");
 		menuManagement[0].setBackground(Color.WHITE);
 		menuManagement[0].setForeground(Color.DARK_GRAY);
-		menuManagement[0].setFont(new Font("돋움",Font.PLAIN,12));
+		menuManagement[0].setFont(new Font("돋움", Font.PLAIN, 12));
 		menuManagement[0].addActionListener(new ActionListener() {
 
 			@Override
@@ -447,7 +449,7 @@ public class OrderPage extends JFrame implements ActionListener {
 		menuManagement[1] = new JButton("전체삭제");
 		menuManagement[1].setBackground(Color.WHITE);
 		menuManagement[1].setForeground(Color.DARK_GRAY);
-		menuManagement[1].setFont(new Font("돋움",Font.PLAIN,12));
+		menuManagement[1].setFont(new Font("돋움", Font.PLAIN, 12));
 		menuManagement[1].addActionListener(new ActionListener() {
 
 			@Override
@@ -460,7 +462,7 @@ public class OrderPage extends JFrame implements ActionListener {
 		menuManagement[2] = new JButton("-");
 		menuManagement[2].setBackground(Color.WHITE);
 		menuManagement[2].setForeground(Color.DARK_GRAY);
-		menuManagement[2].setFont(new Font("돋움",Font.PLAIN,12));
+		menuManagement[2].setFont(new Font("돋움", Font.PLAIN, 12));
 		menuManagement[2].addActionListener(new ActionListener() {
 
 			@Override
@@ -488,7 +490,7 @@ public class OrderPage extends JFrame implements ActionListener {
 		menuManagement[3] = new JButton("+");
 		menuManagement[3].setBackground(Color.WHITE);
 		menuManagement[3].setForeground(Color.DARK_GRAY);
-		menuManagement[3].setFont(new Font("돋움",Font.PLAIN,12));
+		menuManagement[3].setFont(new Font("돋움", Font.PLAIN, 12));
 		menuManagement[3].addActionListener(new ActionListener() {
 
 			@Override
@@ -534,49 +536,59 @@ public class OrderPage extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("카드")) {
-			io.removeObject("TableOrder", tableOrder);
-			remain -= Integer.parseInt(moneyToReceiveT.getText());
-			moneyToReceiveT.setText(String.valueOf(remain));
-			tableOrder.setRemain(remain);
-			io.editDB("TableOrder", tableOrder);
-
-			moneyReceivedT.setText("");
-			ChangeT.setText("");
+		if (tableOrder.getOrderlist() == null) {
+			JOptionPane.showMessageDialog(null, "주문먼저 눌러");
 		} else {
-			daySale.setCash(daySale.getCash() + Integer.parseInt(moneyToReceiveT.getText()));
-			// if(moneyReceivedT.getText().equals("")){
-			// }
-			int change = 0;
-			try {
-				change = Integer.parseInt(moneyReceivedT.getText()) - Integer.parseInt(moneyToReceiveT.getText());
-				if (change < 0) {
-					remain = change * -1;
-				} else {
-					remain -= Integer.parseInt(moneyToReceiveT.getText());
+
+			if (e.getActionCommand().equals("카드")) {
+
+				io.removeObject("TableOrder", tableOrder);
+				remain -= Integer.parseInt(moneyToReceiveT.getText());
+				moneyToReceiveT.setText(String.valueOf(remain));
+				tableOrder.setRemain(remain);
+				io.editDB("TableOrder", tableOrder);
+
+				moneyReceivedT.setText("");
+				ChangeT.setText("");
+			} else {
+
+				// if(moneyReceivedT.getText().equals("")){
+				// }
+				int change = 0;
+				try {
+					change = Integer.parseInt(moneyReceivedT.getText()) - Integer.parseInt(moneyToReceiveT.getText());
+					if (change < 0) {
+						remain = change * -1;
+					} else {
+						remain -= Integer.parseInt(moneyToReceiveT.getText());
+					}
+					System.out.println(daySale.getCash());
+					daySale.setCash(daySale.getCash() + Integer.parseInt(moneyToReceiveT.getText()));
+					System.out.println(daySale.getCash());
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "받은금액을 입력하세요");
+
 				}
-			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(null, "받은금액을 입력하세요");
+				ChangeT.setText(String.valueOf(change));
 
+				io.removeObject("TableOrder", tableOrder);
+				moneyToReceiveT.setText(String.valueOf(remain));
+				tableOrder.setRemain(remain);
+				io.editDB("TableOrder", tableOrder);
 			}
-			ChangeT.setText(String.valueOf(change));
+			if (remain == 0) {
+				new BillPage(tableNo, this);
 
-			io.removeObject("TableOrder", tableOrder);
-			moneyToReceiveT.setText(String.valueOf(remain));
-			tableOrder.setRemain(remain);
-			io.editDB("TableOrder", tableOrder);
-		}
-		if (remain == 0) {
-			new BillPage(tableNo, this);
+				daySale.setTotalSales(daySale.getTotalSales() + tableOrder.getTotalcost());
+				io.removeObject("TableOrder", tableOrder);
+				menuOrders = new ArrayList<MenuOrder>();
 
-			daySale.setTotalSales(daySale.getTotalSales() + tableOrder.getTotalcost());
-			io.removeObject("TableOrder", tableOrder);
-			menuOrders = new ArrayList<MenuOrder>();
+				daySales.add(daySale);
+				io.writeDB("DaySales", daySales);
 
-			daySales.add(daySale);
-			io.writeDB("DaySales", daySales);
-
-			tableFrame.paySuccess(tableNo);
+				tableFrame.paySuccess(tableNo);
+			}
 		}
 	}
+
 }

@@ -138,18 +138,19 @@ public class Magam extends Panel {
 				ArrayList<DaySales> daySales = (ArrayList<DaySales>) io.readDB("DaySales");
 				for (int i = 0; i < daySales.size(); i++) {
 					if (daySales.get(i).getDate().equals(sdf.format(date))) {
+						ds = daySales.get(i);
 						if (totalSales == 0 && expenses == 0) {
 							totalSales = ds.getTotalSales();
 							expenses = ds.getExpenses();
 						}
-						ds = daySales.get(i);
-
 						io.removeObject("DaySales", daySales.get(i));
 					}
 				}
 
 				io.editDB("DaySales", new DaySales(sdf.format(date), totalSales, expenses, Integer.parseInt(strA[0])));
-				daySales = (ArrayList<DaySales>) io.readDB("DaySales");
+
+				totalSales = 0;
+				expenses = 0;
 
 				ui.setSelectedIndex(2);
 			}

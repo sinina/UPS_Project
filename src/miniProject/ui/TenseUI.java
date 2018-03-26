@@ -253,8 +253,14 @@ public class TenseUI extends Panel {
 		for (int i = 0; i < daySales.size(); i++) {
 			if (daySales.get(i).getDate().equals(sdf.format(date))) {
 				ds = daySales.get(i);
+				
 			}
 		}
+//		System.out.println(ds.getCash());
+//		System.out.println(ds.getDate());
+//		System.out.println(ds.getExpenses());
+//		System.out.println(ds.getSoonSales());
+//		System.out.println(ds.getTotalSales());
 		currentTensedala.setText(String.valueOf(-ds.getCash()));
 
 	}

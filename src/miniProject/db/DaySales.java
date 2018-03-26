@@ -19,6 +19,8 @@ public class DaySales implements Serializable{
       this.date = date;
       this.totalSales = totalSales;
       this.expenses = expenses;
+      this.soonSales= totalSales - expenses;
+      this.profit= soonSales >= 0 ? true : false;
       this.cash = cash;
    }
 
