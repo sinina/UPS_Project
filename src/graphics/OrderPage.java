@@ -537,7 +537,7 @@ public class OrderPage extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (tableOrder.getOrderlist() == null) {
-			JOptionPane.showMessageDialog(null, "주문먼저 눌러");
+			JOptionPane.showMessageDialog(null, "주문을 눌러주세요");
 		} else {
 
 			if (e.getActionCommand().equals("카드")) {
@@ -562,9 +562,7 @@ public class OrderPage extends JFrame implements ActionListener {
 					} else {
 						remain -= Integer.parseInt(moneyToReceiveT.getText());
 					}
-					System.out.println(daySale.getCash());
 					daySale.setCash(daySale.getCash() + Integer.parseInt(moneyToReceiveT.getText()));
-					System.out.println(daySale.getCash());
 				} catch (NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "받은금액을 입력하세요");
 
