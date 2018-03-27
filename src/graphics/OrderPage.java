@@ -563,7 +563,7 @@ public class OrderPage extends JFrame implements ActionListener {
 					}
 					daySale.setCash(daySale.getCash() + Integer.parseInt(moneyToReceiveT.getText()));
 				} catch (NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, "받은금액을 입력하세요");
+					JOptionPane.showMessageDialog(null, "받은 현금을 입력하세요");
 
 				}
 				ChangeT.setText(String.valueOf(change));
