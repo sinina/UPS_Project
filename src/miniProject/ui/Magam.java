@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,6 +93,9 @@ public class Magam extends Panel {
 			labels[i] = new JLabel(won[i]);
 			panel1.add(labels[i]);
 			jtf[i] = new JTextField(30);
+			jtf[i].addKeyListener(new TextFiledHandler()) ;
+				
+		
 			jtf[i].setFont(new Font("돋움", Font.PLAIN, 12));
 			panel1.add(jtf[i]);
 		}
@@ -261,5 +266,32 @@ public class Magam extends Panel {
 
 	public void test(JTabbedPane ui) {
 		this.ui = ui;
+	}
+	class TextFiledHandler implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+//			char c = e.getKeyChar();
+//			if (!((Character.isDigit(c) || 
+//			(c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+			getToolkit().beep();
+			e.consume();
+//			}else{
+//				System.out.println(c);
+//			}
+		}
+		
 	}
 }

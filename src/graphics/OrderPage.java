@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
@@ -186,11 +188,13 @@ public class OrderPage extends JFrame implements ActionListener {
 		JLabel totalCostL = new JLabel("총 금액");
 		pBill.add(totalCostL);
 		JTextField totalCostT = new JTextField(30);
+		totalCostT.addKeyListener(new TextFiledHandler());
 		totalCostT.setText(String.valueOf(tableOrder.getTotalcost()));
 		pBill.add(totalCostT);
 		JLabel moneyToReceive = new JLabel("받을 금액 (남은 금액)");// 남은금액
 		pBill.add(moneyToReceive);
 		moneyToReceiveT = new JTextField(30);
+		moneyToReceiveT.addKeyListener(new TextFiledHandler());
 		moneyToReceiveT.setText(String.valueOf(tableOrder.getRemain()));
 		moneyToReceiveT.addMouseListener(new MouseListener() {
 
@@ -228,10 +232,12 @@ public class OrderPage extends JFrame implements ActionListener {
 		JLabel moneyReceived = new JLabel("받은 현금");
 		pBill.add(moneyReceived);
 		moneyReceivedT = new JTextField(30);
+		moneyReceivedT.addKeyListener(new TextFiledHandler());
 		pBill.add(moneyReceivedT);
 		JLabel Change = new JLabel("거스름 돈");
 		pBill.add(Change);
 		ChangeT = new JTextField(30);
+		ChangeT.addKeyListener(new TextFiledHandler());
 		pBill.add(ChangeT);
 
 		// pEast-pNum
@@ -586,6 +592,34 @@ public class OrderPage extends JFrame implements ActionListener {
 				tableFrame.paySuccess(tableNo);
 			}
 		}
+	}
+	
+	class TextFiledHandler implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+//			char c = e.getKeyChar();
+//			if (!((Character.isDigit(c) || 
+//			(c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+			getToolkit().beep();
+			e.consume();
+//			}else{
+//				System.out.println(c);
+//			}
+		}
+		
 	}
 
 }

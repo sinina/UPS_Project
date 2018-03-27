@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -110,6 +112,7 @@ public class TenseUI extends Panel {
 		for (int i = 0; i < label_Text.length; i++) {
 			left.add(jlabel[i] = new JLabel(label_Text[i]));
 			right.add(jtextField[i] = new JTextField(10));
+			jtextField[i].addKeyListener(new TextFiledHandler());
 		}
 		tenseInputPanel.setLayout(new GridLayout(1, 2));
 		tenseInputPanel.add(left);
@@ -244,6 +247,35 @@ public class TenseUI extends Panel {
 
 	}
 
+	class TextFiledHandler implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+//			char c = e.getKeyChar();
+//			if (!((Character.isDigit(c) || 
+//			(c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)))) {
+			getToolkit().beep();
+			e.consume();
+//			}else{
+//				System.out.println(c);
+//			}
+		}
+		
+	}
+	
+	
 	public void getToday() {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
