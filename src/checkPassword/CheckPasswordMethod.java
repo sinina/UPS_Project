@@ -142,6 +142,8 @@ public class CheckPasswordMethod {
 				idTF.setText("");
 				pwF.setText("");
 				makePassword="";
+				inputPassword="";
+				
 			}
 			}catch(FileNotFoundException fnfe){
 				fnfe.printStackTrace();
