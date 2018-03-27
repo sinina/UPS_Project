@@ -10,7 +10,7 @@ public class DaySales implements Serializable{
    private int expenses;// 가게유지비
    private int soonSales;// 순매출
    private int cash;// 현금
-   private boolean profit;// 흑자여부
+   private String profit;// 흑자여부
 
    public DaySales() {
    }
@@ -20,7 +20,7 @@ public class DaySales implements Serializable{
       this.totalSales = totalSales;
       this.expenses = expenses;
       this.soonSales= totalSales - expenses;
-      this.profit= soonSales >= 0 ? true : false;
+      this.profit= soonSales >= 0 ? "흑자" : "적자";
       this.cash = cash;
    }
 
@@ -39,7 +39,7 @@ public class DaySales implements Serializable{
    public void setTotalSales(int totalSales) {
       this.totalSales = totalSales;
       this.soonSales= totalSales - expenses;
-      this.profit= soonSales >= 0 ? true : false;
+      this.profit= soonSales >= 0 ? "흑자" : "적자";
    }
 
    public int getExpenses() {
@@ -49,7 +49,7 @@ public class DaySales implements Serializable{
    public void setExpenses(int expenses) {
       this.expenses = expenses;
       this.soonSales= totalSales - expenses;
-      this.profit= soonSales >= 0 ? true : false;
+      this.profit= soonSales >= 0 ? "흑자" : "적자";
    }
 
    public int getSoonSales() {
@@ -68,11 +68,11 @@ public class DaySales implements Serializable{
       this.cash = cash;
    }
 
-   public boolean isProfit() {
+   public String getProfit() {
       return profit;
    }
 
-   public void setProfit(boolean profit) {
+   public void setProfit(String profit) {
       this.profit = profit;
    }
    

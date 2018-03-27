@@ -20,6 +20,8 @@ public class Today extends Panel {
 	JTextField soonTF;
 	JTextField ugTF;
 	JTextField moneyTF;
+	JTextField cardTF;
+	JLabel profitL;
 
 	FileIO io = new FileIO();
 
@@ -30,7 +32,7 @@ public class Today extends Panel {
 
 		JPanel panel = new JPanel();
 		panel.setBounds(400, 260, 400, 400);
-		panel.setLayout(new GridLayout(4, 2, 0, 50));
+		panel.setLayout(new GridLayout(5, 2, 0, 50));
 
 		JLabel title = new JLabel("금일 순매출");
 		title.setBounds(480, 120, 600, 50);
@@ -64,7 +66,19 @@ public class Today extends Panel {
 		moneyTF = new JTextField(30);
 		moneyTF.setEditable(false);
 		panel.add(moneyTF);
-
+		
+		JLabel card = new JLabel("카드 매출");
+		card.setFont(new Font("돋움", Font.BOLD, 16));
+		panel.add(card);
+		cardTF=new JTextField(30);
+		cardTF.setEditable(false);
+		panel.add(cardTF);
+		
+		profitL = new JLabel();
+		profitL.setFont(new Font("돋움", Font.BOLD, 30));
+		profitL.setBounds(600, 700, 100, 100);
+		this.add(profitL);
+		
 		this.add(panel);
 		this.setVisible(true);
 
@@ -99,6 +113,12 @@ public class Today extends Panel {
 		moneyTF.setText(String.valueOf(ds.getCash()));
 		moneyTF.setFont(new Font("돋움", Font.BOLD, 16));
 		moneyTF.setForeground(Color.BLACK);
+		
+		cardTF.setText(String.valueOf(ds.getTotalSales()-ds.getCash()));
+		cardTF.setFont(new Font("돋움", Font.BOLD, 16));
+		cardTF.setForeground(Color.BLACK);
+		
+		profitL.setText(ds.getProfit());
 
 	}
 
