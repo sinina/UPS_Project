@@ -40,6 +40,7 @@ public class MainFrame {
 		mainFrame = new JFrame("UPS_POS System");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(0, 0, 1200, 900);
+		mainFrame.setResizable(false);
 		mainFrame.setLayout(null);
 		
 		
