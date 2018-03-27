@@ -82,7 +82,7 @@ public class CheckPasswordMethod {
 			frame.add(pwF);
 			
 			loginButton = new JButton("로그인");
-			loginButton.setBounds(150, 180, 120, 50);
+			loginButton.setBounds(80, 180, 120, 50);
 			loginButton.setFont(new Font("돋움", Font.BOLD, 12));
 			loginButton.setForeground(Color.DARK_GRAY);
 			loginButton.setBackground(Color.WHITE);
@@ -100,21 +100,21 @@ public class CheckPasswordMethod {
 				}
 			});
 			
-			changePwd = new JButton("비밀번호 교체");
-			changePwd.setBounds(10, 180, 120, 50);
-			changePwd.setFont(new Font("돋움", Font.BOLD, 12));
-			changePwd.setForeground(Color.DARK_GRAY);
-			changePwd.setBackground(Color.WHITE);
-			frame.add(changePwd);
-			changePwd.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					loginCheck();
-					if(login){
-						changePassword();
-					}
-				}
-			});
+//			changePwd = new JButton("비밀번호 교체");
+//			changePwd.setBounds(10, 180, 120, 50);
+//			changePwd.setFont(new Font("돋움", Font.BOLD, 12));
+//			changePwd.setForeground(Color.DARK_GRAY);
+//			changePwd.setBackground(Color.WHITE);
+//			frame.add(changePwd);
+//			changePwd.addActionListener(new ActionListener() {
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					loginCheck();
+//					if(login){
+//						changePassword();
+//					}
+//				}
+//			});
 			
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frame.setVisible(true);
