@@ -50,7 +50,6 @@ public class OrderPage extends JFrame implements ActionListener {
 
 	HashMap<String, Menu> menus = new HashMap<String, Menu>();
 	ArrayList<MenuOrder> menuOrders = new ArrayList<MenuOrder>();
-	ArrayList<MenuOrder> ordered = new ArrayList<MenuOrder>();
 	ArrayList<TableOrder> tableOrders = new ArrayList<TableOrder>();
 	TableOrder tableOrder = new TableOrder();
 	ArrayList<DaySales> daySales = new ArrayList<DaySales>();
@@ -226,7 +225,7 @@ public class OrderPage extends JFrame implements ActionListener {
 
 		});
 		pBill.add(moneyToReceiveT);
-		JLabel moneyReceived = new JLabel("받은 금액");
+		JLabel moneyReceived = new JLabel("받은 현금");
 		pBill.add(moneyReceived);
 		moneyReceivedT = new JTextField(30);
 		pBill.add(moneyReceivedT);
