@@ -52,6 +52,20 @@ public class SetTable extends Panel implements MouseListener {
 				tableName = String.valueOf(ifNum + 1);
 				
 				t = new TableLocation(ifNum + 1, e.getX() - 100, e.getY() - 75);
+				if(e.getX()<100){
+					t.setX(15);
+				}else if(e.getX()>1000){
+					t.setX(980);
+				}
+				if(e.getY()<75){
+					t.setY(0);
+				}
+				else if(e.getY()>680){
+					t.setY(670);
+				}
+				if (ifNum == start) {
+					io.editDB("tableLocation", t);
+				}
 				io.editDB("tableLocation", t);
 
 				for (int j = ifNum; j < start; j++) {
