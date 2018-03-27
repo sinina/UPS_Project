@@ -63,6 +63,17 @@ public class SetTable extends Panel implements MouseListener {
 				break;
 			}
 		}
+		if(e.getX()<100){
+			t.setX(15);
+		}else if(e.getX()>1000){
+			t.setX(980);
+		}
+		if(e.getY()<75){
+			t.setY(0);
+		}
+		else if(e.getY()>680){
+			t.setY(670);
+		}
 		if (ifNum == start) {
 			io.editDB("tableLocation", t);
 		}
